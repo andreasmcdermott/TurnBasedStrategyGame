@@ -45,7 +45,7 @@ function createEntityManager() {
 var entityManagers = {};
 var activeEntityManager = null;
 
-export var entityManagerHandler = {
+var entityManagers = {
   create: function (name, activate) {
     var entityManager = createEntityManager();
     if (name) {
@@ -81,3 +81,5 @@ export var entityManagerHandler = {
     entityManagers = {};
   }
 };
+
+module.exports = entityManagers;

@@ -19,10 +19,10 @@ var map = {
   rows: 10
 };
 
-import entityManagers from 'entityManager';
-import rectComponent from 'components/rectComponent';
-import posComponent from 'components/posComponent';
-import renderer from 'processors/renderer';
+var entityManagers = require('./entityManager');
+var rectComponent = require('./components/rectComponent');
+var posComponent = require('./components/posComponent');
+var renderer = require('./processors/renderer');
 
 playground({
   width: 640,

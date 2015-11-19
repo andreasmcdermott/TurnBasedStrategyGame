@@ -6,4 +6,4 @@ function createRectComponent(color, width, height) {
   };
 }
 
-export var rectComponent = { name: 'rect', create: createRectComponent };
+module.exports = { name: 'rect', create: createRectComponent };
