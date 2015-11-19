@@ -1,0 +1,20 @@
+{
+  "name": "amcd-turn-based-strategy-game",
+  "description": "A turn based game.",
+  "version": "0.0.1",
+  "author": {
+    "name": "Andreas McDermott",
+    "email": "andreasmcdermott@gmail.com",
+    "url": "http://www.andreasmcdermott.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andreasmcdermott/TurnBasedStrategyGame.git"
+  },
+  "scripts": {
+    "test": "tap tst/*.js"
+  },
+  "devDependencies": {
+    "tape": "^4.2.2"
+  }
+}
