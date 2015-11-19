@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var coffeeify = require('gulp-coffeeify');
+var babel = require('gulp-babel');
 var browserify = require('gulp-browserify');
 var sourcemaps = require("gulp-sourcemaps");
 var uglify = require('gulp-uglify');
@@ -14,13 +14,10 @@ gulp.task('clean', function(cb) {
 
 gulp.task('scripts', ['clean'], function() {
   return gulp.src('src/app.js')
-    .pipe(browserify({
-      debug: true
-    }))
     .pipe(sourcemaps.init())
-    //.pipe(coffeeify())
-    //.pipe(uglify())
-    //.pipe(concat('main.min.js'))
+    .pipe(babel())
+    .pipe(browserify({debug: true}))
+    .pipe(concat('app.js'))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('dist'));
 });

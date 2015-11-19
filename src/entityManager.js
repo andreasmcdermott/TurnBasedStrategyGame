@@ -1,34 +1,83 @@
-var entities = [];
-var nextUid = 0;
+function createEntityManager() {
+  var entities = [];
+  var nextUid = 0;
 
-function getNextUid() {
-  return nextUid++;
+  function getNextUid() {
+    return nextUid++;
+  }
+
+  var entityManager = {
+    create: function (entity) {
+      entity = entity || {};
+      entity.uid = getNextUid();
+      return entity;
+    },
+    add: function (entity) {    
+      entity = entity || {};
+      if (typeof entity.uid !== 'number') {
+        entity.uid = getNextUid();
+      }
+      entities[entity.uid] = entity;
+      return entity;
+    },
+    getById: function (uid) {
+      return entities[uid];
+    },
+    getByComponent: function (name) {
+      var entitiesWithComponent = [];
+      for (var i = 0; i < entities.length; ++i) {
+        var entity = entities[i];
+        if (entity[name]) {
+          entitiesWithComponent.push(entity);
+        }
+      }
+      return entitiesWithComponent;
+    },
+    removeAll: function () {
+      nextUid = 0;
+      entities = [];
+    }
+  }
+  
+  return entityManager;
 }
 
-var entityManager = {
-  createEntity: function (entity) {
-    entity = entity || {};
-    entity.uid = getNextUid();
-    return entity;
-  },
-  addEntity: function (entity) {    
-    entity = entity || {};
-    if (typeof entity.uid !== 'number') {
-      entity.uid = getNextUid();
+var entityManagers = {};
+var activeEntityManager = null;
+
+export var entityManagerHandler = {
+  create: function (name, activate) {
+    var entityManager = createEntityManager();
+    if (name) {
+      this.add(entityManager, name, activate);
     }
-    entities[entity.uid] = entity;
-    return entity;
+    return entityManager;
   },
-  getEntity: function (uid) {
-    return entities[uid];
+  add: function (entityManager, name, activate) {
+    entityManager.name = name;
+    
+    entityManagers[name] = entityManager;
+    if ((!activeEntityManager && activate !== false) || activate) {
+      this.activate(name);
+    }
   },
-  getEntitiesByComponent(name) {
-    return entities;
+  get: function (name) {
+    if (!name) {
+      return activeEntityManager;
+    } else {
+      return entityManagers[name];
+    }
+  },
+  remove: function (name) {
+    var entityManager = entityManagers[name];
+    entityManagers[name] = undefined;
+    return entityManager;
+  },
+  activate: function (name) {
+    activeEntityManager = entityManagers[name];
   },
   reset: function () {
-    nextUid = 0;
-    entities = [];
+    activeEntityManager = null;
+    entityManagers = {};
   }
-}
-
-module.exports = entityManager;
+};

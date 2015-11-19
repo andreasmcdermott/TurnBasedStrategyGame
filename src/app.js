@@ -19,13 +19,10 @@ var map = {
   rows: 10
 };
 
-var entityManager = require('./entityManager');
-var rectComponent = require('./components/rectComponent');
-var posComponent = require('./components/posComponent');
-var renderProcessors = [
-  require('./processors/renderer')
-];
-var updateProcessors = [];
+import entityManagers from 'entityManager';
+import rectComponent from 'components/rectComponent';
+import posComponent from 'components/posComponent';
+import renderer from 'processors/renderer';
 
 playground({
   width: 640,
@@ -36,14 +33,15 @@ playground({
     
   },
   create: function () {
+    var entityManager = entityManagers.create('main', true);
+    
     for (var y = 0; y < map.rows; ++y) {
       for (var x = 0; x < map.columns; ++x) {
         var id = x + y * map.columns;
-        var e = entityManager.addEntity({
+        var e = entityManager.add({
           pos: posComponent.create(x * 32, y * 32),
           rect: rectComponent.create(map.types[map.data[id]].color, 32, 32)
         });
-        console.log(e);
       }
     }
   },    
@@ -54,16 +52,10 @@ playground({
 
   },
   step: function (dt) {
-    for(var i = 0; i < updateProcessors.length; ++i) {
-      var processor = updateProcessors[i];
-      processor(dt);
-    }
+
   },
   render: function () {
     this.layer.clear('#000000');
-    for(var i = 0; i < renderProcessors.length; ++i) {
-      var processor = renderProcessors[i];
-      processor(this);
-    }
+    renderer(this);
   }
 });

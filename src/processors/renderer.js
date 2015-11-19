@@ -1,9 +1,9 @@
-var entityManager = require('../entityManager');
-var rectComponent = require('../components/rectComponent.js');
-var posComponent = require('../components/posComponent.js');
+import entityManagers from '../entityManager';
+import rectComponent from '../components/rectComponent.js';
+import posComponent from '../components/posComponent.js';
 
-function renderer(app) {
-  var entities = entityManager.getEntitiesByComponent(rectComponent.name);
+export function renderer(app) {
+  var entities = entityManagers.get().getByComponent(rectComponent.name);
   
   for (var i = 0; i < entities.length; ++i) {    
     var entity = entities[i];
@@ -15,5 +15,3 @@ function renderer(app) {
     app.layer.fillRect(pos.x, pos.y, rect.width, rect.height);
   }
 }
-
-module.exports = renderer;

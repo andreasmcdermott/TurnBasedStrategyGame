@@ -1,55 +1,79 @@
 var test = require('tape');
-var entityManager = require('../src/entityManager');
+var createEntityManager = require('../src/entityManager').create;
 
 test('create entity without object', function (t) {
-  entityManager.reset();  
+  t.plan(6);
   
-  t.plan(3);
-  
+  var entityManager1 = createEntityManager(); 
   for (var i = 0; i < 3; ++i) {
-    t.equal(entityManager.createEntity().uid, i);
+    t.equal(entityManager1.create().uid, i);
+  }
+  
+  var entityManager2 = createEntityManager(); 
+  for (var i = 0; i < 3; ++i) {
+    t.equal(entityManager2.create().uid, i);
   }
 });
 
 test('create entity with object', function (t) {
-  entityManager.reset();
-  
   t.plan(3);
+  
+  var entityManager = createEntityManager();
   var e;
   
-  e = entityManager.createEntity({});
+  e = entityManager.create({});
   t.equal(0, e.uid);
   
-  e = entityManager.createEntity({ uid: 1000, other: true });
+  e = entityManager.create({ uid: 1000, other: true });
   t.deepEqual({ uid: 1, other: true }, e);
   
-  e = entityManager.createEntity({ x: 0 });
+  e = entityManager.create({ x: 0 });
   t.deepEqual({ uid: 2, x: 0 }, e);
 });
 
 test('add new entity', function (t) {
-  entityManager.reset();
+  var entityManager = createEntityManager();
   
   t.plan(2);
   
-  var e = entityManager.addEntity();
+  var e = entityManager.add();
   
   t.deepEqual({ uid: 0 }, e);
-  t.deepEqual({ uid: 0 }, entityManager.getEntity(0));
+  t.deepEqual({ uid: 0 }, entityManager.getById(0));
 });
 
 test('add existing entity', function (t) {
-  entityManager.reset();
-  
   t.plan(4);
+  
+  var entityManager = createEntityManager();
   var e;
   
-  e = entityManager.addEntity({ x: true });
+  e = entityManager.add({ x: true });
   t.deepEqual({ uid: 0, x: true }, e);
-  t.deepEqual({ uid: 0, x: true }, entityManager.getEntity(0));
+  t.deepEqual({ uid: 0, x: true }, entityManager.getById(0));
   
-  e = entityManager.createEntity({ y: 10 });
-  e = entityManager.addEntity(e);
+  e = entityManager.create({ y: 10 });
+  e = entityManager.add(e);
   t.deepEqual({ uid: 1, y: 10 }, e);
-  t.deepEqual({ uid: 1, y: 10 }, entityManager.getEntity(1));
+  t.deepEqual({ uid: 1, y: 10 }, entityManager.getById(1));
+});
+
+test('get entity by component', function (t) {
+  t.plan(3);
+  
+  var entityManager = createEntityManager();
+  
+  entityManager.add({
+    'component1': {},
+    'component2': {}
+  });
+  
+  entityManager.add({
+    'component2': {},
+    'component3': {}
+  });
+  
+  t.equal(1, entityManager.getByComponent('component1').length);
+  t.equal(2, entityManager.getByComponent('component2').length);
+  t.equal(1, entityManager.getByComponent('component3').length);
 });
