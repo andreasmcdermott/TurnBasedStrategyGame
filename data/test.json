@@ -1,0 +1,12 @@
+{
+  "entities": [
+    { 
+      "pos": { "x": 0, "y": 0 },
+      "rect": { "color": "#ffffff", "width": 32, "height": 32 }
+    },
+    { 
+      "pos": { "x": 100, "y": 100 },
+      "rect": { "color": "#ff0000", "width": 64, "height": 64 }
+    }
+  ]
+}
