@@ -1,26 +1,6 @@
-var map = {
-  types: {
-    '0': { color: '#0000ff' },
-    '1': { color: '#ff0000' }
-  },
-  data: [
-    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-  ],
-  columns: 20,
-  rows: 10
-};
-
 var entityManagers = require('./entityManager');
-var mapLoader = require('./mapLoader');
+var mapLoader = require('./map/mapLoader');
+var mapGenerators = require('./map/mapGenerators');
 var processors = require('./processors');
 
 playground({
@@ -32,14 +12,17 @@ playground({
     
   },
   create: function () {
-    this.loadData('test');
+    //this.loadData('test');
   },    
   resize: function () {
     
   },    
   ready: function () {
+    var mapGenerator = new mapGenerators.HouseMapGenerator();
+    var map = mapGenerator.create();
+    //var map = this.data.test;
     entityManagers.create('main', true);
-    mapLoader.load(this.data.test)
+    mapLoader.load(map);
   },
   step: function (dt) {
 
