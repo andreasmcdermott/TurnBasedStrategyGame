@@ -40,11 +40,11 @@ test('is object', function (t) {
   t.plan(7);
   
   t.doesNotThrow(function () { assert.isObject({}); });
+  t.doesNotThrow(function () { assert.isObject(null); });
   t.throws(function () { assert.isObject([]); });
   t.throws(function () { assert.isObject(''); });
   t.throws(function () { assert.isObject('{}'); });
   t.throws(function () { assert.isObject(0); });
-  t.throws(function () { assert.isObject(null); });
   t.throws(function () { assert.isObject(undefined); });
 });
 

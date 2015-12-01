@@ -1,20 +1,25 @@
 var assert = require('./assert');
+var check = require('./check');
 
 var util = {
   extend: function (base, extendWith) {
     assert.isObject(extendWith);
+    if (check.isNullOrUndefined(extendWith)) {
+      return base;
+    }
     
     base = base || {};
     for (var key in extendWith) {
       if (!base.hasOwnProperty(key)) {
-        if (Array.isArray(extendWith[key])) {
-          base[key] = this.copyArray(extendWith[key]);
+        var prop = extendWith[key];
+        if (check.isArray(prop)) {
+          base[key] = this.copyArray(prop);
         }
-        else if (typeof extendWith[key] === 'object') {
-          base[key] = this.extend({}, extendWith[key]);
+        else if (check.isObject(prop)) {
+          base[key] = this.extend(null, prop);
         }
         else {
-          base[key] = extendWith[key];
+          base[key] = prop;
         }
       }
     }
@@ -25,16 +30,18 @@ var util = {
     
     var copy = [];
     for (var i = 0; i < original.length; ++i) {
-      if (Array.isArray(original[i])) {
-        copy[i] = this.copyArray(original[i]);
+      var val = original[i];
+      if (check.isArray(val)) {
+        copy[i] = this.copyArray(val);
       }
-      else if (typeof original[i] === 'object') {
-        copy[i] = this.extend({}, original[i]);
+      else if (check.isObject(val)) {
+        copy[i] = this.extend(null, val);
       }
       else {
-        copy[i] = original[i];
+        copy[i] = val;
       }
     }
+    return copy;
   }
 };
 

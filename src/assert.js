@@ -1,26 +1,28 @@
+var check = require('./check');
+
 var assert = {
-  isArray: function (param) {
-    if (!Array.isArray(param)) {
-      throw 'Invalid type. Expected array.';
+  isArray: function (param, message) {
+    if (!check.isArray(param)) {
+      throw message || 'Invalid type. Expected array, received ' + param + '.';
     }
   },
   isNumber: function (param, message) {
-    if (typeof param !== 'number') {
-      throw message || 'Invalid type. Expected number.'
+    if (!check.isNumber(param)) {
+      throw message || 'Invalid type. Expected number, received ' + param + '.';
     }
   },
   isString: function (param, message) {
-    if (typeof param !== 'string') {
-      throw message || 'Invalid type. Expected string.'
+    if (!check.isString(param)) {
+      throw message || 'Invalid type. Expected string, received ' + param + '.';
     }
   },
   isObject: function (param, message) {
-    if (typeof param !== 'object') {
-      throw message || 'Invalid type. Expected object';
+    if (!check.isObject(param)) {
+      throw message || 'Invalid type. Expected object, received ' + param + '.';
     }
   },
   isNotNullOrUndefined: function (param, message) {
-    if (param === null || param === undefined) {
+    if (check.isNullOrUndefined(param)) {
       throw message || 'Invalid value. Expected not null and not undefined.';
     }
   }
