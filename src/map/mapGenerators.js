@@ -1,5 +1,5 @@
 var mapGenerators = {
-  HouseMapGenerator: require('./generators/houseMapGenerator')
+  basic: require('./generators/basicMapGenerator')
 };
 
 module.exports = mapGenerators;

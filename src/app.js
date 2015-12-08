@@ -4,25 +4,26 @@ var mapGenerators = require('./map/mapGenerators');
 var processors = require('./processors');
 
 playground({
-  width: 640,
-  height: 320,
-  scale: 2,
+  width: 240,
+  height: 360,
+  scale: 1.5,
   
   preload: function () {
     
   },
   create: function () {
-    //this.loadData('test');
+    
   },    
   resize: function () {
     
   },    
   ready: function () {
-    var mapGenerator = new mapGenerators.HouseMapGenerator();
-    var map = mapGenerator.create();
-    //var map = this.data.test;
-    entityManagers.create('main', true);
-    mapLoader.load(map);
+    var m = entityManagers.create('main', true);
+    var map = mapGenerators.basic.generate();
+    mapLoader.load(map, {
+      width: this.width,
+      offsetY: 32
+    });
   },
   step: function (dt) {
 
