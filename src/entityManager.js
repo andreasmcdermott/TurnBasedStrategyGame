@@ -23,15 +23,24 @@ function createEntityManager() {
     getById: function (uid) {
       return entities[uid];
     },
-    getByComponent: function (name) {
+    getByComponent: function (component) {
       var entitiesWithComponent = [];
       for (var i = 0; i < entities.length; ++i) {
         var entity = entities[i];
-        if (entity[name]) {
+        if (entity[component.name]) {
           entitiesWithComponent.push(entity);
         }
       }
       return entitiesWithComponent;
+    },
+    getOneByComponent: function (component) {
+      var entities = this.getByComponent(component);
+      if (entities.length > 1) {
+        throw 'Expected a single entity with component ' + component.name;
+      } else if (entities.length === 1) {
+        return entities[0];
+      }
+      return null;
     },
     removeAll: function () {
       nextUid = 0;

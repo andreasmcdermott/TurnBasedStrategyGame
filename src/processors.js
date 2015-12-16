@@ -1,7 +1,9 @@
 var processors = {
-  update: {},
+  update: {
+    cells: require('./processors/cellUpdater')
+  },
   render: {
-    shapes: require('./processors/shapeRenderer')
+    cells: require('./processors/cellRenderer')
   }
 };
 

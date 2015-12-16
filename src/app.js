@@ -2,6 +2,8 @@ var entityManagers = require('./entityManager');
 var mapLoader = require('./map/mapLoader');
 var mapGenerators = require('./map/mapGenerators');
 var processors = require('./processors');
+var Input = require('./input');
+var config = require('./config');
 
 playground({
   width: 240,
@@ -12,7 +14,7 @@ playground({
     
   },
   create: function () {
-    
+    this.input = new Input(this);
   },    
   resize: function () {
     
@@ -22,14 +24,17 @@ playground({
     var map = mapGenerators.basic.generate();
     mapLoader.load(map, {
       width: this.width,
-      offsetY: 32
+      offsetY: config.SCREEN_OFFSET_Y
     });
   },
   step: function (dt) {
-
+    if (entityManagers.get() === null) {
+      return;
+    }
+    processors.update.cells(this, dt);
   },
   render: function () {
     this.layer.clear('#000000');
-    processors.render.shapes(this);
+    processors.render.cells(this);
   }
 });

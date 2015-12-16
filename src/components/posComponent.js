@@ -1,5 +1,7 @@
+var Point = require('../utils/point');
+
 function createPosComponent(x, y) {
-  return { x: x, y: y };
+  return new Point(x, y);
 }
 
 module.exports = { name: 'pos', create: createPosComponent };
