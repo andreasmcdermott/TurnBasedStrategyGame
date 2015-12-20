@@ -18,7 +18,7 @@ var BaseMapGenerator = {
         }
 
         mapRow.push({
-          type: '0'
+          type: this.getType()
         });
       }
       map.cells.push(mapRow);

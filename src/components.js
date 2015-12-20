@@ -3,7 +3,8 @@ var components = {
   pos: require('./components/posComponent'),
   circle: require('./components/circleComponent'),
   highlightCell: require('./components/highlightCellComponent'),
-  cell: require('./components/cellComponent')
+  cell: require('./components/cellComponent'),
+  wall: require('./components/wallComponent')
 };
 
 module.exports = components;

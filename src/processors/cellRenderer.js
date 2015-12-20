@@ -1,5 +1,6 @@
 var entityManagers = require('../entityManager');
 var components = require('../components');
+var config = require('../config');
 
 function cellRenderer(app) {
   var entities = entityManagers.get().getByComponent(components.cell);

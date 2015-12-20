@@ -19,7 +19,7 @@ function highlight(app, dt) {
     for (var i = 0; i < entities.length; ++i) {
       var entity = entities[i];
       
-      if (entity.pos.distanceTo(inputPos) < entity.cell.size) {
+      if (entity.pos.distanceTo(inputPos) < entity.cell.size && !entity.wall) {
         entity.highlightCell = components.highlightCell.create(config.HIGHLIGHT_COLOR);
         break;
       }

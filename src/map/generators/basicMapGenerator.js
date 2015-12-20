@@ -18,4 +18,8 @@ function BasicMapGenerator() {
 
 BasicMapGenerator.prototype = base;
 
+BasicMapGenerator.prototype.getType = function () {
+  return Math.floor(Math.random() * 10) === 1 ? '0' : '1';
+}
+
 module.exports = new BasicMapGenerator();

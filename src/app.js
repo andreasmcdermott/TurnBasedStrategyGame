@@ -6,8 +6,8 @@ var Input = require('./input');
 var config = require('./config');
 
 playground({
-  width: 240,
-  height: 360,
+  width: config.CANVAS_WIDTH,
+  height: config.CANVAS_HEIGHT,
   scale: 1.5,
   
   preload: function () {

@@ -1,4 +1,6 @@
 module.exports = {
+  CANVAS_WIDTH: 240,
+  CANVAS_HEIGHT: 360,
   HIGHLIGHT_COLOR: '#ffffff',
   CELL_SIZE: 32,
   SCREEN_OFFSET_Y: 32

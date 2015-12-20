@@ -11,7 +11,8 @@ var defaultOptions = {
 
 function getColorByType(type) {
   switch(type) {
-    case '0': return '#ff0000';
+    case '0': return '#000000'
+    case '1': return '#ff0000';    
     default: return '#00ff00';
   };
 }
@@ -43,6 +44,9 @@ var mapLoader = {
         var entity = entityManager.add();
         entity.cell = components.cell.create(q, r, size, getColorByType(cell.type));
         entity.pos = components.pos.create(startX + q * offsetX, startY + r * offsetY + isOddColumn * oddColumnExtraOffset);
+        if (cell.type === '0') {
+          entity.wall = components.wall.create();
+        }
         entities[q + '-' + r] = entity;
       }
     }
@@ -59,7 +63,7 @@ var mapLoader = {
       for (var i = 0; i < neighbors.length; ++i) {
         var neighbor = neighbors[i];
         var neighborEntity = entities[(entity.cell.q + neighbor.q) + '-' + (entity.cell.r + neighbor.r)];
-        if (neighborEntity) {
+        if (neighborEntity && !neighborEntity.wall) {
           entity.cell.addNeighbor(neighborEntity);
         }
       }
