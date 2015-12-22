@@ -1,22 +1,22 @@
+var debug = require('./utils/debug');
+var global = require('./global');
 var Point = require('./utils/point');
 
 var MOUSE_ID = 255;
 
-function Input(app) {
-  this.app = app;  
-}
-
-function getActivePointer() {
-  for (var key in this.app.pointers) {
-    return this.app.pointers[key];
+var input = {
+  pointermove: function (e) {
+    
+  },
+  pointerdown: function (e) {
+    
+  },
+  pointerup: function (e) {
+    
+  },
+  pointerwheel: function (e) {
+    
   }
-}
+};
 
-Input.prototype = {
-  getPosition: function () {
-    var pointer = getActivePointer.call(this);
-    return pointer ? new Point(pointer.x, pointer.y) : null;
-  }
-}
-
-module.exports = Input;
+module.exports = input;
