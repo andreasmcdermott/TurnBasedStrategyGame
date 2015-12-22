@@ -1,8 +1,10 @@
 var config = require('./config');
+var cellTypes = require('./cellTypes');
 var global = require('./global');
 var Dictionary = require('./utils/dictionary');
 var Point = require('./utils/point');
 var Cell = require('./entities/cell');
+var Wall = require('./entities/wall');
 
 var cells;
 var cellsByPosition;
@@ -47,12 +49,12 @@ function create(data) {
   for (var r = 0; r < data.length; ++r) {
     var row = data[r];
     for (var q = 0; q < row.length; ++q) {
-      var cell = row[q];
-      if (cell === null) {
+      var cellType = row[q];
+      if (cellType === cellTypes.nothing) {
         continue;
       }
 
-      cell = new Cell(q, r);
+      cell = createCorrectType(cellType, q, r);
       cells.push(cell);
       cellsByPosition.set(cell, cell);
     }
@@ -61,6 +63,17 @@ function create(data) {
   for (var i = 0; i < cells.length; ++i) {
     cell = cells[i];
     cell.updateLinks(cellsByPosition);
+  }
+}
+
+function createCorrectType(type, q, r) {
+  switch(type) {
+    case cellTypes.regular: 
+      return new Cell(q, r);
+    case cellTypes.wall: 
+      return new Wall(q, r);
+    default: 
+      throw 'Invalid cell type: ' + type;
   }
 }
 

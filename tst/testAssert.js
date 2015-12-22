@@ -1,5 +1,5 @@
 var test = require('tape');
-var assert = require('../src/assert');
+var assert = require('../src/utils/assert');
 
 test('is array', function (t) {
   t.plan(7);

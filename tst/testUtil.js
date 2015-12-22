@@ -1,8 +1,8 @@
 var test = require('tape');
-var util = require('../src/util');
+var util = require('../src/utils/util');
 
 test('expand', function (t) {
-  t.plan(1);
+  t.plan(2);
   
   var source = {
     t: 'nooo', 
@@ -15,10 +15,10 @@ test('expand', function (t) {
     x: 'hi', 
     obj: {t: false, z: 12, arr: [1, 2]}
   };
-  var obj = util.extend({t: true}, source);
-  var correct = source;
-  correct.t = true; // Should not have modified existing value
-  t.deepEqual(obj, correct);
+  var source2 = {t: true};
+  var obj = util.extend({}, source2, source);
+  t.deepEqual(obj, source);
+  t.deepEqual(source2, {t: true});
 });
 
 test('copy array', function (t) {

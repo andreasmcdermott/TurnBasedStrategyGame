@@ -3,26 +3,28 @@ var check = require('./check');
 
 var util = {
   extend: function (base, extendWith) {
-    assert.isObject(extendWith);
-    if (check.isNullOrUndefined(extendWith)) {
-      return base;
-    }
-    
+    var base = arguments[0];
     base = base || {};
-    for (var key in extendWith) {
-      if (!base.hasOwnProperty(key)) {
+    
+    for (var i = 1; i < arguments.length; ++i) {
+      var extendWith = arguments[i];
+      if (check.isNullOrUndefined(extendWith)) {
+        continue;
+      }
+      for (var key in extendWith) {
         var prop = extendWith[key];
         if (check.isArray(prop)) {
           base[key] = this.copyArray(prop);
         }
-        else if (check.isObject(prop)) {
-          base[key] = this.extend(null, prop);
+        else if (check.isObject(prop) && !check.isNullOrUndefined(prop)) {
+          base[key] = this.extend({}, prop);
         }
         else {
           base[key] = prop;
         }
       }
     }
+    
     return base;
   },
   copyArray: function (original) {
@@ -34,8 +36,8 @@ var util = {
       if (check.isArray(val)) {
         copy[i] = this.copyArray(val);
       }
-      else if (check.isObject(val)) {
-        copy[i] = this.extend(null, val);
+      else if (check.isObject(val) && !check.isNullOrUndefined(val)) {
+        copy[i] = this.extend({}, val);
       }
       else {
         copy[i] = val;
