@@ -20,6 +20,15 @@ function Map(data) {
 }
 
 Map.prototype = {
+  getCellByPos: function (pos) {
+    for (var i = 0; i < cells.length; ++i) {
+      var cell = cells[i];
+      if (cell.isWithinCell(pos)) {
+        return cell;
+      }
+    }
+    return null;
+  },
   render: function () {
     for (var i = 0; i < cells.length; ++i) {
       var cell = cells[i];

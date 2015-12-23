@@ -1,10 +1,10 @@
 var config = require('./config');
 var debug = require('./utils/debug');
 var global = require('./global');
-var input = require('./input');
 var setup = require('./setup');
 var logic = require('./logic');
 var renderer = require('./renderer');
+global.input = require('./input');
 
 debug.enable();
 
@@ -20,8 +20,8 @@ global.app = playground({
   ready: setup.ready,
   step: logic.step,
   render: renderer.render,
-  pointermove: input.pointermove,
-  pointerdown: input.pointerdown,
-  pointerup: input.pointerup,
-  pointerwheel: input.pointerwheel
+  pointermove: global.input.pointermove,
+  pointerdown: global.input.pointerdown,
+  pointerup: global.input.pointerup,
+  pointerwheel: global.input.pointerwheel
 });

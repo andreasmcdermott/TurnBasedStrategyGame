@@ -25,10 +25,13 @@ function calculatePosition() {
   var oddColumnExtraOffset = height * 0.5;
   
   return new Point(this.q * offsetX, 
-                       this.r * offsetY + isOddColumn * oddColumnExtraOffset);
+                   this.r * offsetY + isOddColumn * oddColumnExtraOffset);
 }
 
 Cell.prototype = util.extend({}, Entity.prototype, {
+  isWithinCell: function (pos) {
+    return this.pos.distanceTo(pos) < this.size;
+  },
   getCorners: function () {
     var corners = [0, 60, 120, 180, 240, 300];
     var cornerPositions = [];

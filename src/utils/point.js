@@ -7,6 +7,10 @@ Point.prototype = {
   copy: function () {
     return new Point(this.x, this.y);
   },
+  set: function (x, y) {
+    this.x = x;
+    this.y = y;
+  },
   transform: function (point) {
     this.x += point.x;
     this.y += point.y;
