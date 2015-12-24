@@ -5,24 +5,21 @@ var Dictionary = require('./utils/dictionary');
 var Point = require('./utils/point');
 var Cell = require('./entities/cell');
 var Wall = require('./entities/wall');
-
-var cells;
-var cellsByPosition;
-var renderOffset;
+var PathFinder = require('./pathFinder');
 
 function Map(data) {
-  cells = [];
-  cellsByPosition = new Dictionary(function (key) {
-    return key.q + ',' + key.r;
-  });
-  renderOffset = new Point((global.app.width - (data[0].length - 1) * config.CELL_SIZE * 0.75) * 0.5, 32);
+  this.private = {
+    pathFinder: new PathFinder(),
+    cells: [],
+    renderOffset: new Point((global.app.width - (data[0].length - 1) * config.CELL_SIZE * 0.75) * 0.5, 32)
+  };
   create.call(this, data);
 }
 
 Map.prototype = {
   getCellByPos: function (pos) {
-    for (var i = 0; i < cells.length; ++i) {
-      var cell = cells[i];
+    for (var i = 0; i < this.private.cells.length; ++i) {
+      var cell = this.private.cells[i];
       if (cell.isWithinCell(pos)) {
         return cell;
       }
@@ -30,25 +27,19 @@ Map.prototype = {
     return null;
   },
   render: function () {
-    for (var i = 0; i < cells.length; ++i) {
-      var cell = cells[i];
+    for (var i = 0; i < this.private.cells.length; ++i) {
+      var cell = this.private.cells[i];
       
       global.app.layer.strokeStyle('red');
       var cornerPositions = cell.getCorners();
       for (var j = 0; j < cornerPositions.length; ++j) {
-        var start = cornerPositions[j].copy().transform(renderOffset);
-        var end = cornerPositions[(j + 1) % cornerPositions.length].copy().transform(renderOffset);
+        var start = cornerPositions[j].copy().transform(this.private.renderOffset);
+        var end = cornerPositions[(j + 1) % cornerPositions.length].copy().transform(this.private.renderOffset);
         global.app.layer.strokeLine(start.x, start.y, end.x, end.y);
       }
-      
-      global.app.layer.strokeStyle('blue');
-      var links = cell.getLinks();
-      for (var k = 0; k < links.length; ++k) {
-        var sp = cell.pos.copy().transform(renderOffset);
-        var ep = links[k].pos.copy().transform(renderOffset);
-        global.app.layer.strokeLine(sp.x, sp.y, ep.x, ep.y);
-      }
     }
+    
+    this.private.pathFinder.renderLinks(this.private.renderOffset);
   }
 };
 
@@ -64,15 +55,12 @@ function create(data) {
       }
 
       cell = createCorrectType(cellType, q, r);
-      cells.push(cell);
-      cellsByPosition.set(cell, cell);
+      this.private.cells.push(cell);
+      this.private.pathFinder.addCell(cell);
     }
   }
   
-  for (var i = 0; i < cells.length; ++i) {
-    cell = cells[i];
-    cell.updateLinks(cellsByPosition);
-  }
+  this.private.pathFinder.updateLinks();
 }
 
 function createCorrectType(type, q, r) {
