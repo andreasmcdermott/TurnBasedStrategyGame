@@ -22,7 +22,7 @@ var input = {
     return clicked;
   },
   pointermove: function (e) {
-    pos.set(e.x, e.y);
+    pos.set(e.x - global.canvasOffset.x, e.y - global.canvasOffset.y);
   },
   pointerdown: function (e) {
     down = true;

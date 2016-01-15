@@ -8,6 +8,7 @@ global.input = require('./input');
 
 debug.enable();
 
+global.canvasOffset = {x: 0, y: 0};
 global.app = playground({
   width: config.CANVAS_WIDTH,
   height: config.CANVAS_HEIGHT,

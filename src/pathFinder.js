@@ -11,18 +11,27 @@ function PathFinder () {
   };
 }
 
+function findBestPath(startPos, endPos) {
+  
+}
+
 PathFinder.prototype = {
-  renderLinks: function (offsets) {
+  findPath: function (startCell, endCell) {
+    if (startCell !== null && endCell !== null && (startCell.q !== endCell.q || startCell.r !== endCell.r)) {
+      findBestPath.call(this, startCell, endCell);    
+    }
+  },
+  renderLinks: function () {
     global.app.layer.strokeStyle('blue');
     
     var cells = this.private.cellsByPosition.values();
     for (var i = 0; i < cells.length; ++i) {
       var cell = cells[i];
-      var sp = cell.pos.copy().transform(offsets);
+      var sp = cell.pos.copy().transform(global.canvasOffset);
       var links = this.private.linksByPosition.get(cell);
       for (var j = 0; j < links.length; ++j) {
         var linkedCell = links[j];
-        var ep = linkedCell.pos.copy().transform(offsets);
+        var ep = linkedCell.pos.copy().transform(global.canvasOffset);
         global.app.layer.strokeLine(sp.x, sp.y, ep.x, ep.y);
       }
     }

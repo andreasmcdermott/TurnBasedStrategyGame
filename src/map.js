@@ -10,8 +10,9 @@ var PathFinder = require('./pathFinder');
 function Map(data) {
   this.private = {
     pathFinder: new PathFinder(),
-    cells: [],
-    renderOffset: new Point((global.app.width - (data[0].length - 1) * config.CELL_SIZE * 0.75) * 0.5, 32)
+    startPos: null,
+    endPos: null,
+    cells: []
   };
   create.call(this, data);
 }
@@ -26,6 +27,18 @@ Map.prototype = {
     }
     return null;
   },
+  setStartPosition: function (cell) {
+    if (cell !== this.private.startPos) {
+      this.private.startPos = cell;
+      this.private.pathFinder.findPath(this.private.startPos, this.private.endPos);
+    }
+  },
+  setEndPosition: function (cell) {
+    if (cell !== this.private.endPos) {
+      this.private.endPos = cell;
+      this.private.pathFinder.findPath(this.private.startPos, this.private.endPos);
+    }
+  },
   render: function () {
     for (var i = 0; i < this.private.cells.length; ++i) {
       var cell = this.private.cells[i];
@@ -33,13 +46,13 @@ Map.prototype = {
       global.app.layer.strokeStyle('red');
       var cornerPositions = cell.getCorners();
       for (var j = 0; j < cornerPositions.length; ++j) {
-        var start = cornerPositions[j].copy().transform(this.private.renderOffset);
-        var end = cornerPositions[(j + 1) % cornerPositions.length].copy().transform(this.private.renderOffset);
+        var start = cornerPositions[j].copy().transform(global.canvasOffset);
+        var end = cornerPositions[(j + 1) % cornerPositions.length].copy().transform(global.canvasOffset);
         global.app.layer.strokeLine(start.x, start.y, end.x, end.y);
       }
     }
     
-    this.private.pathFinder.renderLinks(this.private.renderOffset);
+    this.private.pathFinder.renderLinks();
   }
 };
 
