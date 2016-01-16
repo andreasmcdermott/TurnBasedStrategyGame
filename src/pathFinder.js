@@ -1,5 +1,6 @@
 var global = require('./global');
 var Dictionary = require('./utils/dictionary');
+var Point = require('./utils/point');
 
 function PathFinder () {
   var keyMapper = function (key) {
@@ -12,13 +13,26 @@ function PathFinder () {
 }
 
 function findBestPath(startPos, endPos) {
-  
+  return null;
 }
 
 PathFinder.prototype = {
   findPath: function (startCell, endCell) {
     if (startCell !== null && endCell !== null && (startCell.q !== endCell.q || startCell.r !== endCell.r)) {
-      findBestPath.call(this, startCell, endCell);    
+      return findBestPath.call(this, startCell, endCell);    
+    }
+    return null;
+  },
+  renderPath: function (path) {
+    if (path === null) {
+      return;
+    }
+    global.app.layer.strokeStyle('blue');
+    
+    for (var i = 0; i < path.length - 1; ++i) {
+      var start = path[i].copy().transform(global.canvasOffset);
+      var end = path[i + 1].copy().transform(global.canvasOffset);
+      global.app.layer.strokeLine(start.x, start.y, end.x, end.y);
     }
   },
   renderLinks: function () {

@@ -12,6 +12,7 @@ function Map(data) {
     pathFinder: new PathFinder(),
     startPos: null,
     endPos: null,
+    path: null,
     cells: []
   };
   create.call(this, data);
@@ -30,13 +31,13 @@ Map.prototype = {
   setStartPosition: function (cell) {
     if (cell !== this.private.startPos) {
       this.private.startPos = cell;
-      this.private.pathFinder.findPath(this.private.startPos, this.private.endPos);
+      this.private.path = this.private.pathFinder.findPath(this.private.startPos, this.private.endPos);
     }
   },
   setEndPosition: function (cell) {
     if (cell !== this.private.endPos) {
       this.private.endPos = cell;
-      this.private.pathFinder.findPath(this.private.startPos, this.private.endPos);
+      this.private.path = this.private.pathFinder.findPath(this.private.startPos, this.private.endPos);
     }
   },
   render: function () {
@@ -52,7 +53,8 @@ Map.prototype = {
       }
     }
     
-    this.private.pathFinder.renderLinks();
+    this.private.pathFinder.renderPath(this.private.path);
+    //this.private.pathFinder.renderLinks();
   }
 };
 
