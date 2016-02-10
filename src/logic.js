@@ -1,4 +1,4 @@
-var global = require('./global');
+import global from './global';
 
 function handleHover() {
   var pos = global.input.getPos();
@@ -18,12 +18,10 @@ function handleClick() {
   }
 }
 
-var logic = {
-  step: function (dt) {
+export default {
+  step (dt) {
     handleClick();
     handleHover();
     global.input.newFrame();
   }
 };
-
-module.exports = logic;

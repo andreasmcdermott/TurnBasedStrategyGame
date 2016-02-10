@@ -1,6 +1,6 @@
-var debug = require('./utils/debug');
-var global = require('./global');
-var Point = require('./utils/point');
+import debug from './utils/debug';
+import global from './global';
+import Point from './utils/point';
 
 var MOUSE_ID = 255;
 
@@ -8,32 +8,30 @@ var pos = new Point(0, 0);
 var clicked = false;
 var down = false;
 
-var input = {
-  newFrame: function () {
+export default {
+  newFrame () {
     clicked = false;
   },
-  getPos: function () {
+  getPos () {
     return pos;
   },
-  isClicking: function () {
+  isClicking () {
     return down;
   },
-  hasClicked: function () {
+  hasClicked () {
     return clicked;
   },
-  pointermove: function (e) {
+  pointermove (e) {
     pos.set(e.x - global.canvasOffset.x, e.y - global.canvasOffset.y);
   },
-  pointerdown: function (e) {
+  pointerdown (e) {
     down = true;
   },
-  pointerup: function (e) {
+  pointerup (e) {
     down = false;
     clicked = true;
   },
-  pointerwheel: function (e) {
+  pointerwheel (e) {
     
   }
 };
-
-module.exports = input;

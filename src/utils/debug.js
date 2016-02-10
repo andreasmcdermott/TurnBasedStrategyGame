@@ -8,7 +8,7 @@ function dummy() {
 
 var active = dummy;
 
-var debug = {
+export default {
   disable: function () {
     active = dummy;
   },
@@ -19,5 +19,3 @@ var debug = {
     active.apply(this, arguments);
   }
 };
-
-module.exports = debug;

@@ -1,23 +1,21 @@
-var global = require('./global');
-var config = require('./config');
-var Map = require('./map');
-var Point = require('./utils/point');
-var testMap = require('../maps/test_0');
+import global from './global';
+import config from './config';
+import Map from './map';
+import Point from './utils/point';
+import testMap from '../maps/test_0';
 
-var setup = {
-  preload: function () {
+export default {
+  preload () {
     
   },
-  create: function () {
+  create () {
     global.canvasOffset = new Point((global.app.width - (testMap[0].length - 1) * config.CELL_SIZE * 0.75) * 0.5, 32);
     global.map = new Map(testMap);
   },    
-  resize: function () {
+  resize () {
     
   },    
-  ready: function () {
+  ready () {
 
   }
 };
-
-module.exports = setup;

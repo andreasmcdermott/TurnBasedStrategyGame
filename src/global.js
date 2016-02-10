@@ -1,3 +1,1 @@
-var global = {};
-
-module.exports = global;
+export default {};

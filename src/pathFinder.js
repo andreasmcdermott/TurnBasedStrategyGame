@@ -1,8 +1,8 @@
-var global = require('./global');
-var Dictionary = require('./utils/dictionary');
-var Point = require('./utils/point');
+import global from './global';
+import Dictionary from './utils/dictionary';
+import Point from './utils/point';
 
-function PathFinder () {
+export default function PathFinder () {
   var keyMapper = function (key) {
     return key.q + ',' + key.r;
   };
@@ -13,18 +13,18 @@ function PathFinder () {
 }
 
 function findBestPath(startPos, endPos) {
-  var links = this.private.linksByPosition(startPos);
+  var links = this.private.linksByPosition.get(startPos);
   return null;
 }
 
 PathFinder.prototype = {
-  findPath: function (startCell, endCell) {
+  findPath (startCell, endCell) {
     if (startCell !== null && endCell !== null && !startCell.isSame(endCell)) {
       return findBestPath.call(this, startCell, endCell);    
     }
     return null;
   },
-  renderPath: function (path) {
+  renderPath (path) {
     if (path === null) {
       return;
     }
@@ -36,7 +36,7 @@ PathFinder.prototype = {
       global.app.layer.strokeLine(start.x, start.y, end.x, end.y);
     }
   },
-  renderLinks: function () {
+  renderLinks () {
     global.app.layer.strokeStyle('blue');
     
     var cells = this.private.cellsByPosition.values();
@@ -51,10 +51,10 @@ PathFinder.prototype = {
       }
     }
   },
-  addCell: function (cell) {
+  addCell (cell) {
     this.private.cellsByPosition.set(cell, cell);
   },
-  updateLinks: function () {
+  updateLinks () {
     this.private.linksByPosition.clear();
     var linkOffsetsByOddAndEvenColumn = [
       [{ q: 1, r: 0 }, { q: 1, r: -1 }, { q: 0, r: -1 }, { q: -1, r: -1 }, { q: -1, r: 0 }, { q: 0, r: 1 }],
@@ -79,5 +79,3 @@ PathFinder.prototype = {
     }
   }
 };
-
-module.exports = PathFinder;

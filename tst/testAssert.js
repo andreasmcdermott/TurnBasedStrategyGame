@@ -1,5 +1,5 @@
-var test = require('tape');
-var assert = require('../src/utils/assert');
+import test from 'tape';
+vimport assert from '../src/utils/assert';
 
 test('is array', function (t) {
   t.plan(7);

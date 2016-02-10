@@ -1,7 +1,7 @@
-var assert = require('./assert');
-var check = require('./check');
+import assert from './assert';
+import check from './check';
 
-var util = {
+export default {
   extend: function (base, extendWith) {
     var base = arguments[0];
     base = base || {};
@@ -46,5 +46,3 @@ var util = {
     return copy;
   }
 };
-
-module.exports = util;

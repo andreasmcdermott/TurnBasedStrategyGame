@@ -1,7 +1,5 @@
-var types = {
+export default {
   nothing: null,
   regular: '0',
   wall: '1'
 };
-
-module.exports = types;

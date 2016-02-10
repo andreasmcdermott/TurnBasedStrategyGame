@@ -1,4 +1,4 @@
-function Point(x, y) {
+export default function Point(x, y) {
   this.x = x;
   this.y = y;
 }
@@ -22,5 +22,3 @@ Point.prototype = {
     return Math.sqrt(dx * dx + dy * dy);
   }
 };
-
-module.exports = Point;

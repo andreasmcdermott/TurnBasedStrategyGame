@@ -1,5 +1,5 @@
-var test = require('tape');
-var util = require('../src/utils/util');
+import test from 'tape';
+import util from '../src/utils/util';
 
 test('expand', function (t) {
   t.plan(2);

@@ -1,13 +1,13 @@
-var config = require('./config');
-var cellTypes = require('./cellTypes');
-var global = require('./global');
-var Dictionary = require('./utils/dictionary');
-var Point = require('./utils/point');
-var Cell = require('./entities/cell');
-var Wall = require('./entities/wall');
-var PathFinder = require('./pathFinder');
+import config from './config'; 
+import cellTypes from './cellTypes'; 
+import global from './global'; 
+import Dictionary from './utils/dictionary';
+import Point from './utils/point';
+import Cell from './entities/cell';
+import Wall from './entities/wall';
+import PathFinder from './pathFinder';
 
-function Map(data) {
+export default function Map(data) {
   this.private = {
     pathFinder: new PathFinder(),
     startPos: null,
@@ -88,5 +88,3 @@ function createCorrectType(type, q, r) {
       throw 'Invalid cell type: ' + type;
   }
 }
-
-module.exports = Map;

@@ -1,7 +1,7 @@
-var util = require('../utils/util');
-var Cell = require('./cell');
+import util from '../utils/util';
+import Cell from './cell';
 
-function Wall(q, r) {
+export default function Wall(q, r) {
   Cell.call(this, q, r);
   this.walkable = false;
 }
@@ -17,5 +17,3 @@ Wall.prototype = util.extend({}, Cell.prototype, {
 });
 
 Wall.prototype.constructor = Wall;
-
-module.exports = Wall;

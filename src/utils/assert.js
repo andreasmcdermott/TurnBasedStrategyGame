@@ -1,6 +1,6 @@
-var check = require('./check');
+import check from './check';
 
-var assert = {
+export default {
   isArray: function (param, message) {
     if (!check.isArray(param)) {
       throw message || 'Invalid type. Expected array, received ' + param + '.';
@@ -27,5 +27,3 @@ var assert = {
     }
   }
 };
-
-module.exports = assert;

@@ -1,4 +1,4 @@
-function Dictionary(keyMapper) {
+export default function Dictionary(keyMapper) {
   this.private = {
     keyMapper: keyMapper,
     map: {}
@@ -27,5 +27,3 @@ Dictionary.prototype = {
     return values;
   }
 }
-
-module.exports = Dictionary;

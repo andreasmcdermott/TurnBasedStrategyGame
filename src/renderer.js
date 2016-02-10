@@ -1,10 +1,8 @@
-var global = require('./global');
+import global from './global';
 
-var renderer = {
-  render: function () {
+export default {
+  render () {
     global.app.layer.clear('#000000');
     global.map.render();
   }
 };
-
-module.exports = renderer;

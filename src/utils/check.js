@@ -1,4 +1,4 @@
-var check = {
+export default {
   isArray: function (param) {
     return Array.isArray(param);
   },
@@ -18,5 +18,3 @@ var check = {
     return !this.isNullOrUndefined(param);
   }
 };
-
-module.exports = check;

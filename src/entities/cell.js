@@ -1,10 +1,10 @@
-var config = require('../config');
-var global = require('../global');
-var util = require('../utils/util');
-var Point = require('../utils/point');
-var Entity = require('./entity');
+import config from '../config';
+import global from '../global';
+import util from '../utils/util';
+import Point from '../utils/point';
+import Entity from './entity';
 
-function Cell(q, r) {
+export default function Cell(q, r) {
   this.q = q;
   this.r = r;
   this.size = config.CELL_SIZE * 0.5;
@@ -49,5 +49,3 @@ Cell.prototype = util.extend({}, Entity.prototype, {
 });
 
 Cell.prototype.constructor = Cell;
-
-module.exports = Cell;

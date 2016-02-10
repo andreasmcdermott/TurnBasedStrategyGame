@@ -1,4 +1,4 @@
-var types = require('../src/cellTypes');
+import types from '../src/cellTypes';
 var nil = types.nothing;
 var reg = types.regular;
 var wal = types.wall;

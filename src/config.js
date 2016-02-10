@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   CANVAS_WIDTH: 240,
   CANVAS_HEIGHT: 360,
   CELL_SIZE: 32,

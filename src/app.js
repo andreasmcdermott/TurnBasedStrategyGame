@@ -1,10 +1,11 @@
-var config = require('./config');
-var debug = require('./utils/debug');
-var global = require('./global');
-var setup = require('./setup');
-var logic = require('./logic');
-var renderer = require('./renderer');
-global.input = require('./input');
+import config from './config';
+import debug from './utils/debug';
+import global from './global';
+import setup from './setup';
+import logic from './logic';
+import renderer from './renderer';
+import input from './input';
+global.input = input;
 
 debug.enable();
 
