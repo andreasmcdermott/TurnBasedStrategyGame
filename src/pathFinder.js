@@ -13,12 +13,13 @@ function PathFinder () {
 }
 
 function findBestPath(startPos, endPos) {
+  var links = this.private.linksByPosition(startPos);
   return null;
 }
 
 PathFinder.prototype = {
   findPath: function (startCell, endCell) {
-    if (startCell !== null && endCell !== null && (startCell.q !== endCell.q || startCell.r !== endCell.r)) {
+    if (startCell !== null && endCell !== null && !startCell.isSame(endCell)) {
       return findBestPath.call(this, startCell, endCell);    
     }
     return null;

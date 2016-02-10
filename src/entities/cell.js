@@ -28,6 +28,9 @@ function calculatePosition() {
 }
 
 Cell.prototype = util.extend({}, Entity.prototype, {
+  isSame: function (cell) {
+    return this.q === cell.q && this.r === cell.r;
+  },
   isWithinCell: function (pos) {
     return this.pos.distanceTo(pos) < this.size;
   },
